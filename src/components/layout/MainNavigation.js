@@ -6,23 +6,25 @@ import { Link } from 'react-router-dom';
 import SignupBtn from './Header/Buttons/Signup/SignupButton';
 import LoginBtn from './Header/Buttons/Login/LoginButton';
 
+import classes from './MainNavigation.module.css';
+
 function MainNavigation() {
   return (
-    <header>
-      <div>Brand Title</div>
-      <nav>
-        <ul>
+    <header className={classes.navHeader}>
+      <nav className={classes.mainNav}>
+        <h3 className={classes.navBrand}>Crypto Web App</h3>
+        <ul className={classes.navList}>
           <li>
-            <Link to="/">Home</Link>
+            <Link to='/'>Home</Link>
           </li>
           <li>
-            <Link to="prices-page">Prices Overview</Link>
+            <Link to='prices-page'>Prices Overview</Link>
           </li>
           <li>
-            <Link to="my-crypto">My Crypto</Link>
+            <Link to='my-crypto'>My Crypto</Link>
           </li>
           <li>
-            <Link to="my-watchlist">My Watchlist</Link>
+            <Link to='my-watchlist'>My Watchlist</Link>
           </li>
         </ul>
         <div>

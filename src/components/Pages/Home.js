@@ -36,7 +36,7 @@ function HomePage() {
 
   return (
     <section className={classes.tokenListDisplay}>
-      <h1 style={{ color: 'blue', textAlign: 'center', marginTop: '100px' }}>
+      <h1 className={classes.tokenHeader}>
         Top 100 Crypto Currencies (by market cap)
       </h1>
       <TokenList tokens={loadedTokens} loading={isLoading} />

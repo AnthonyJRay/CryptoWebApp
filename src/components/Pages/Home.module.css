@@ -4,3 +4,10 @@
   flex-direction: column;
   align-items: center;
 }
+
+.tokenHeader {
+  color: darkslategray;
+  text-align: center;
+  font-size: 3rem;
+  margin-top: 100px;
+}

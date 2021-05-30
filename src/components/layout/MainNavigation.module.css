@@ -1,0 +1,26 @@
+.navHeader {
+  background-color: #fff;
+  padding: 15px;
+}
+
+.navBrand {
+}
+
+.mainNav {
+  display: flex;
+  justify-content: space-between;
+  max-width: 90%;
+  align-items: center;
+  margin: auto;
+}
+
+.navList {
+  list-style-type: none;
+  display: flex;
+  width: 60%;
+  justify-content: space-around;
+}
+
+.navList li a {
+  text-decoration: none;
+}
