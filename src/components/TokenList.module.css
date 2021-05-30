@@ -1,7 +1,28 @@
-.tokenList {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  justify-content: center;
+.table {
+  max-width: 90%;
+  margin: auto;
+}
+
+.tableLabels {
+  font-size: 1.6em;
+  padding: 1.4rem;
+  font-weight: 900;
+  color: rgb(34, 37, 49);
+}
+
+.tableData td {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.tableData tr {
+  width: 95%;
+}
+
+.positiveChange {
+  color: #57c784;
+}
+
+.negativeChange {
+  color: #c21807;
 }

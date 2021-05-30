@@ -8,72 +8,92 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-// import TokenListHeader from './TokenListHeader';
-// import TokenItem from './Token';
+import Spinner from './ui/loadingSpinner';
 
 import classes from './TokenList.module.css';
 
 function TokenList(props) {
-  return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label='simple table'>
-        <TableHead>
-          <TableRow>
-            <TableCell>Cryptocurrencies</TableCell>
-            <TableCell align='right'>Icon</TableCell>
-            <TableCell align='right'>Synbol</TableCell>
-            <TableCell align='right'>Price</TableCell>
-            <TableCell align='right'>Price Change (24h)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.tokens.map((token) => (
-            <TableRow key={token.name}>
-              <TableCell component='th' scope='row'>
-                {token.name}
+  if (props.loading) {
+    return <Spinner />;
+  } else {
+    return (
+      <TableContainer component={Paper} elevation={5} className={classes.table}>
+        <Table className={classes.table} aria-label='crypto token table'>
+          {/* Table column labels */}
+          <TableHead>
+            <TableRow>
+              <TableCell className={classes.tableLabels} align='center'>
+                Rank
               </TableCell>
-              <TableCell align='right'>
-                <img
-                  style={{ height: '50px' }}
-                  src={token.image}
-                  alt='Cryptocurrent Logos'
-                />
+              <TableCell className={classes.tableLabels} align='center'>
+                Cryptocurrencies
               </TableCell>
-              <TableCell align='right'>{token.symbol.toUpperCase()}</TableCell>
-              <TableCell align='right'>{token.current_price}</TableCell>
-              <TableCell align='right'>
-                {token.market_cap_change_percentage_24h}
+              <TableCell className={classes.tableLabels} align='right'>
+                Icon
+              </TableCell>
+              <TableCell className={classes.tableLabels} align='right'>
+                Symbol
+              </TableCell>
+              <TableCell className={classes.tableLabels} align='right'>
+                Price
+              </TableCell>
+              <TableCell className={classes.tableLabels} align='right'>
+                Price Change 24h %
+              </TableCell>
+              <TableCell className={classes.tableLabels} align='right'>
+                Market Cap
+              </TableCell>
+              <TableCell className={classes.tableLabels} align='center'>
+                Volume
               </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
 
-    // <table className={classes.tokenList}>
-    //   <TokenListHeader />
-    //   {props.tokens.map((token) => {
-    //     return (
-    //       <TokenItem
-    //         key={token.id}
-    //         image={token.image}
-    //         name={token.name}
-    //         ticker={token.symbol}
-    //         price={token.current_price}
-    //         priceChange={token.market_cap_change_percentage_24h}
-    //       />
-    //     );
-    //   })}
-    // </table>
-  );
+          {/* Token data */}
+          <TableBody>
+            {props.tokens.map((token) => (
+              <TableRow key={token.name} className={classes.tableData}>
+                <TableCell align='center'>{token.market_cap_rank}</TableCell>
+                <TableCell align='center' component='th' scope='row'>
+                  <img
+                    style={{ maxWidth: '25%' }}
+                    src={token.image}
+                    alt='Cryptocurrent Logos'
+                  />
+                </TableCell>
+                <TableCell align='right'>{token.name}</TableCell>
+                <TableCell align='right'>
+                  {token.symbol.toUpperCase()}
+                </TableCell>
+                <TableCell align='right'>
+                  $
+                  {token.current_price.toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </TableCell>
+                <TableCell
+                  align='right'
+                  className={
+                    token.market_cap_change_percentage_24h < 0
+                      ? classes.negativeChange
+                      : classes.positiveChange
+                  }>
+                  {token.market_cap_change_percentage_24h.toFixed(2)}%
+                </TableCell>
+                <TableCell align='right'>
+                  ${token.market_cap.toLocaleString('en-US')}
+                </TableCell>
+                <TableCell align='right'>
+                  ${token.total_volume.toLocaleString('en-US')}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  }
 }
 
 export default TokenList;
-
-// const rows = [
-//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//   createData('Eclair', 262, 16.0, 24, 6.0),
-//   createData('Cupcake', 305, 3.7, 67, 4.3),
-//   createData('Gingerbread', 356, 16.0, 49, 3.9),
-// ];

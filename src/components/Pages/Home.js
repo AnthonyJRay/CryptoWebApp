@@ -1,10 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+
 import TokenList from '../TokenList';
+
+import classes from './Home.module.css';
 
 function HomePage() {
   const [loadedTokens, setLoadedTokens] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -15,6 +19,7 @@ function HomePage() {
         const tokens = [];
 
         for (const key in response.data) {
+          console.log(response);
           const token = {
             id: key,
             ...response.data[key],
@@ -23,17 +28,18 @@ function HomePage() {
           tokens.push(token);
         }
         setLoadedTokens(tokens);
+        setIsLoading(false);
       });
   }, []);
 
   // console.log(loadedTokens, [loadedTokens]);
 
   return (
-    <section>
+    <section className={classes.tokenListDisplay}>
       <h1 style={{ color: 'blue', textAlign: 'center', marginTop: '100px' }}>
         Top 100 Crypto Currencies (by market cap)
       </h1>
-      <TokenList tokens={loadedTokens} />
+      <TokenList tokens={loadedTokens} loading={isLoading} />
     </section>
   );
 }
