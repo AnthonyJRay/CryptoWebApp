@@ -6,20 +6,18 @@ import classes from './TickerTape.module.css';
 function TickerTape() {
   return (
     <div className={classes.tickerContainer}>
-      <ul className={classes.firstTicker}>
-        <li className={classes.tickerOne}>Ticker 1</li>
-        <li className={classes.tickerTwo}>Ticker 2</li>
-        <li className={classes.tickerThree}>Ticker 3</li>
-        <li className={classes.tickerFour}>Ticker 4</li>
-        <li className={classes.tickerFive}>Ticker 5</li>
-      </ul>
-      <ul className={classes.secondTicker}>
-        <li className={classes.tickerSix}>Ticker 6</li>
-        <li className={classes.tickerSeven}>Ticker 7</li>
-        <li className={classes.tickerEight}>Ticker 8</li>
-        <li className={classes.tickerNine}>Ticker 9</li>
-        <li className={classes.tickerTen}>Ticker 10</li>
-      </ul>
+      <div className={classes.firstTicker}>
+        <div className={classes.ticker}>Ticker 1</div>
+        <div className={classes.ticker}>Ticker 2</div>
+        <div className={classes.ticker}>Ticker 3</div>
+        <div className={classes.ticker}>Ticker 4</div>
+        <div className={classes.ticker}>Ticker 5</div>
+      </div>
+      <div className={`${classes.ticker2}`}>Ticker 6</div>
+      <div className={`${classes.ticker2}`}>Ticker 7</div>
+      <div className={`${classes.ticker2}`}>Ticker 8</div>
+      <div className={`${classes.ticker2}`}>Ticker 9</div>
+      <div className={`${classes.ticker2}`}>Ticker 10</div>
     </div>
   );
 }
