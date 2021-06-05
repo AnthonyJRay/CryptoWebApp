@@ -1,9 +1,10 @@
 import React from 'react';
 import MainNavigation from './MainNavigation';
 
-import TickerTape from '../ui/TickerTape';
+import TickerTape from '../ui/TickerTape/TickerTape';
 
 function Layout(props) {
+  console.log(props);
   return (
     <div>
       <MainNavigation />
