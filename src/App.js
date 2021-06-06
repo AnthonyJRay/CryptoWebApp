@@ -16,13 +16,13 @@ function App() {
   // Call to API and Data manipulation
   const [loadedTokens, setLoadedTokens] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     axios
       .get(
         'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false'
       )
       .then((response) => {
+        console.log(response);
         const tokens = [];
 
         for (const key in response.data) {
