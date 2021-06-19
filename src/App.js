@@ -15,30 +15,67 @@ import WatchlistPage from './components/Pages/Watchlist';
 function App() {
   // Call to API and Data manipulation
   const [loadedTokens, setLoadedTokens] = useState([]);
+  const [trendingTokens, setTrendingTokens] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    axios
-      .get(
-        'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false'
-      )
-      .then((response) => {
-        console.log(response);
-        const tokens = [];
 
-        for (const key in response.data) {
-          console.log(response);
+  useEffect(() => {
+    const tokenData = axios.get(
+      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false'
+    );
+    const trendingData = axios.get(
+      'https://api.coingecko.com/api/v3/search/trending'
+    );
+
+    axios
+      .all([tokenData, trendingData])
+      .then(
+        axios.spread((...responses) => {
+          const tokenResponse = responses[0];
+          const trendingResponse = responses[1];
+
+          return [tokenResponse, trendingResponse];
+        })
+      )
+
+      // Main Token Data
+      .then((tokenResponse) => {
+        const tokens = [];
+        const trendCoins = [];
+
+        // Main Token Data
+        const tokenData = tokenResponse[0].data.map((coins) => {
+          return coins;
+        });
+
+        // Trending Token Data
+        console.log(tokenResponse[1].data.coins);
+        const trendingData = tokenResponse[1].data.coins.map((trend) => {
+          return trend;
+        });
+
+        // Setting an id before saving to state
+        for (const key in tokenData) {
           const token = {
             id: key,
-            ...response.data[key],
+            ...tokenData[key],
           };
 
           tokens.push(token);
         }
+
+        // Setting an id before saving to state
+        for (const key in trendingData) {
+          const trendToken = {
+            id: key,
+            ...trendingData[key],
+          };
+          trendCoins.push(trendToken);
+        }
         setLoadedTokens(tokens);
+        setTrendingTokens(trendCoins);
         setIsLoading(false);
       });
   }, []);
-  // console.log(loadedTokens, [loadedTokens]);
 
   return (
     <div className='App'>
@@ -46,7 +83,11 @@ function App() {
       <Layout>
         <Switch>
           <Route path='/' exact>
-            <HomePage tokenTable={loadedTokens} loading={isLoading} />
+            <HomePage
+              loading={isLoading}
+              tokenTable={loadedTokens}
+              trendingData={trendingTokens}
+            />
           </Route>
 
           <Route path='/prices-page'>
